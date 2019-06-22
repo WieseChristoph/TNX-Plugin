@@ -1,0 +1,23 @@
+name: TNX
+version: 0.2
+author: Tonix1508
+main: Main.Main
+
+commands:
+     vote:
+      description: Vote for day, night, clear or rain.
+      usage: /<command> <day|night|clear|rain>
+      permission: tnx.vote
+     rocket:
+      description: Launch a player in the air and let him explode.
+      usage: /<command> <player>
+      permission: tnx.rocket
+     ce:
+      description: Enable ord disable Creeper Explosion protection.
+      usage: /<command> <true|false>
+      permission: tnx.ce
+     bb:
+      description: Create a BossBar Broadcast Message.
+      usage: /<command> <message>
+      permission: tnx.bb
+     
