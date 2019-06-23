@@ -1,4 +1,4 @@
-package Event;
+package de.wiese_christoph.tnx.listeners;
 
 
 import java.util.Collection;
@@ -17,7 +17,7 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.inventory.meta.FireworkMeta;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import Main.Main;
+import de.wiese_christoph.tnx.Main;
 
 public class Death implements Listener {
 	

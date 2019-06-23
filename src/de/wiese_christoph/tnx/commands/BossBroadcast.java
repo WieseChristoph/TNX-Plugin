@@ -1,4 +1,4 @@
-package Commands;
+package de.wiese_christoph.tnx.commands;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -11,7 +11,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import Main.Main;
+import de.wiese_christoph.tnx.Main;
 
 public class BossBroadcast implements CommandExecutor {
 	

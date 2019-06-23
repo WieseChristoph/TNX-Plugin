@@ -1,4 +1,4 @@
-package Commands;
+package de.wiese_christoph.tnx.commands;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -9,10 +9,11 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
+
+import de.wiese_christoph.tnx.Main;
+
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
-
-import Main.Main;
 
 public class Rocket implements CommandExecutor {
 	

@@ -1,4 +1,4 @@
-package Event;
+package de.wiese_christoph.tnx.listeners;
 
 import java.util.ArrayList;
 import org.bukkit.ChatColor;
@@ -14,7 +14,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import Main.Main;
+import de.wiese_christoph.tnx.Main;
 
 public class CreeperExplosion implements Listener, CommandExecutor {
 	

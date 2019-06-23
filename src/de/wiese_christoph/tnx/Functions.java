@@ -1,4 +1,4 @@
-package Main;
+package de.wiese_christoph.tnx;
 
 import java.util.Calendar;
 

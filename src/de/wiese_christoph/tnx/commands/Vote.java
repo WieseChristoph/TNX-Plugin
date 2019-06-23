@@ -1,4 +1,4 @@
-package Commands;
+package de.wiese_christoph.tnx.commands;
 
 import java.util.ArrayList;
 import org.bukkit.Bukkit;
@@ -10,7 +10,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerQuitEvent;
-import Main.Main;
+
+import de.wiese_christoph.tnx.Main;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.ComponentBuilder;

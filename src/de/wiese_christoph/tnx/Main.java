@@ -1,13 +1,13 @@
-package Main;
+package de.wiese_christoph.tnx;
 
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import Commands.BossBroadcast;
-import Commands.Rocket;
-import Commands.Vote;
-import Event.CreeperExplosion;
-import Event.Death;
+import de.wiese_christoph.tnx.commands.BossBroadcast;
+import de.wiese_christoph.tnx.commands.Rocket;
+import de.wiese_christoph.tnx.commands.Vote;
+import de.wiese_christoph.tnx.listeners.CreeperExplosion;
+import de.wiese_christoph.tnx.listeners.Death;
 
 
 public class Main extends JavaPlugin{
