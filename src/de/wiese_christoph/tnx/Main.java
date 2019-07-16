@@ -6,6 +6,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import de.wiese_christoph.tnx.commands.BossBroadcast;
 import de.wiese_christoph.tnx.commands.Rocket;
 import de.wiese_christoph.tnx.commands.Vote;
+import de.wiese_christoph.tnx.commands.TabComplete;
 import de.wiese_christoph.tnx.listeners.CreeperExplosion;
 import de.wiese_christoph.tnx.listeners.Death;
 
@@ -25,6 +26,10 @@ public class Main extends JavaPlugin{
 		getCommand("ce").setExecutor(new CreeperExplosion(this));
 		getCommand("bb").setExecutor(new BossBroadcast(this));
 		getServer().getPluginManager().registerEvents(new Vote(), this);
+		
+		//TabCompleter
+		getCommand("vote").setTabCompleter(new TabComplete());
+		getCommand("ce").setTabCompleter(new TabComplete());
 		
 		//Init Events
 		getServer().getPluginManager().registerEvents(new Death(this), this);

@@ -1,7 +1,8 @@
 name: TNX
 version: 0.2
 author: Tonix1508
-main: Main.Main
+api-version: 1.14
+main: de.wiese_christoph.tnx.Main
 
 commands:
      vote:
