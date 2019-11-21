@@ -1,5 +1,7 @@
 package de.wiese_christoph.tnx.commands;
 
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
@@ -26,6 +28,11 @@ public class Vote implements CommandExecutor, Listener{
 	static ArrayList<String> onplC = new ArrayList<String>();
 	static ArrayList<String> onplR = new ArrayList<String>();
 	
+	int min = (int) Math.round(Bukkit.getOnlinePlayers().size()*0.75);
+	
+	LocalDateTime lastVoteTime = LocalDateTime.now().minusMinutes(2);
+	LocalDateTime lastVoteWeather = LocalDateTime.now().minusMinutes(2);
+	
 	//get the world
 	static World world = Bukkit.getServer().getWorld("world"); 
 	
@@ -39,11 +46,17 @@ public class Vote implements CommandExecutor, Listener{
 				Player p = (Player)sender;
 				if(p.hasPermission("tnx.vote")) {
 					if(args.length > 0) {
-						int min = Bukkit.getOnlinePlayers().size()/2;
 						
 						//Time
 						//Day
 						if(args[0].equalsIgnoreCase("day")) {
+							
+							// 2 Min Cooldown
+							if(LocalDateTime.now().isBefore(lastVoteTime.plusMinutes(2))){
+								p.sendMessage(Main.Name + ChatColor.RED + "Cooldown: " + ChatColor.GOLD + LocalDateTime.now().until(lastVoteTime.plusMinutes(2), ChronoUnit.SECONDS) + ChatColor.RED + " Seconds");
+								return true;
+							}
+							
 							if(!onplD.contains(p.getDisplayName())) {
 								onplD.add(p.getDisplayName());
 								
@@ -62,6 +75,8 @@ public class Vote implements CommandExecutor, Listener{
 									world.setTime(0);
 									Bukkit.broadcastMessage(Main.Name + ChatColor.DARK_GREEN + "Anscheinend haben genug Deppen gevoted.");
 									onplD.clear();
+									onplN.clear();
+									lastVoteTime = LocalDateTime.now();
 									return true;
 								}
 								return true;
@@ -70,8 +85,15 @@ public class Vote implements CommandExecutor, Listener{
 								return true;
 							}
 							
-						//Night
-						}else if (args[0].equalsIgnoreCase("night")) {
+						//Night with 2 min cooldown
+						}else if (args[0].equalsIgnoreCase("night") && LocalDateTime.now().isAfter(lastVoteTime.plusMinutes(2))) {
+							
+							// 2 Min Cooldown
+							if(LocalDateTime.now().isBefore(lastVoteTime.plusMinutes(2))){
+								p.sendMessage(Main.Name + ChatColor.RED + "Cooldown: " + ChatColor.GOLD + LocalDateTime.now().until(lastVoteTime.plusMinutes(2), ChronoUnit.SECONDS) + ChatColor.RED + " Seconds");
+								return true;
+							}
+							
 							if(!onplN.contains(p.getDisplayName())) {
 								onplN.add(p.getDisplayName());
 								
@@ -90,7 +112,9 @@ public class Vote implements CommandExecutor, Listener{
 								if(onplN.size() >= min) {
 									world.setTime(15000);
 									Bukkit.broadcastMessage(Main.Name + ChatColor.DARK_GREEN + "Anscheinend haben genug Deppen gevoted.");
+									onplD.clear();
 									onplN.clear();
+									lastVoteTime = LocalDateTime.now();
 									return true;
 								}
 								return true;					
@@ -101,8 +125,15 @@ public class Vote implements CommandExecutor, Listener{
 							
 							
 						//Weather
-						//Clear
-						}else if (args[0].equalsIgnoreCase("clear")) {
+						//Clear with 2 min cooldown
+						}else if (args[0].equalsIgnoreCase("clear") && LocalDateTime.now().isAfter(lastVoteWeather.plusMinutes(2))) {
+							
+							// 2 Min Cooldown
+							if(LocalDateTime.now().isBefore(lastVoteWeather.plusMinutes(2))){
+								p.sendMessage(Main.Name + ChatColor.RED + "Cooldown: " + ChatColor.GOLD + LocalDateTime.now().until(lastVoteWeather.plusMinutes(2), ChronoUnit.SECONDS) + ChatColor.RED + " Seconds");
+								return true;
+							}
+							
 							if(!onplC.contains(p.getDisplayName())) {
 								onplC.add(p.getDisplayName());
 								
@@ -122,6 +153,8 @@ public class Vote implements CommandExecutor, Listener{
 									world.setStorm(false);
 									Bukkit.broadcastMessage(Main.Name + ChatColor.DARK_GREEN + "Anscheinend haben genug Deppen gevoted.");
 									onplC.clear();
+									onplR.clear();
+									lastVoteWeather = LocalDateTime.now();
 									return true;
 								}
 								return true;
@@ -130,8 +163,15 @@ public class Vote implements CommandExecutor, Listener{
 								return true;
 							}
 							
-						//Rain
-						}else if (args[0].equalsIgnoreCase("rain")) {
+						//Rain with 2 min cooldown
+						}else if (args[0].equalsIgnoreCase("rain") && LocalDateTime.now().isAfter(lastVoteWeather.plusMinutes(2))) {
+							
+							// 2 Min Cooldown
+							if(LocalDateTime.now().isBefore(lastVoteWeather.plusMinutes(2))){
+								p.sendMessage(Main.Name + ChatColor.RED + "Cooldown: " + ChatColor.GOLD + LocalDateTime.now().until(lastVoteWeather.plusMinutes(2), ChronoUnit.SECONDS) + ChatColor.RED + " Seconds");
+								return true;
+							}
+							
 							if(!onplR.contains(p.getDisplayName())) {
 								onplR.add(p.getDisplayName());
 								
@@ -150,7 +190,9 @@ public class Vote implements CommandExecutor, Listener{
 									world.setThundering(true);
 									world.setStorm(true);
 									Bukkit.broadcastMessage(Main.Name + ChatColor.DARK_GREEN + "Anscheinend haben genug Deppen gevoted.");
+									onplC.clear();
 									onplR.clear();
+									lastVoteWeather = LocalDateTime.now();
 									return true;
 								}
 								return true;

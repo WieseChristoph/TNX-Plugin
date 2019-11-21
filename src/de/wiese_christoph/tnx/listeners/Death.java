@@ -64,7 +64,7 @@ public class Death implements Listener {
 			    		cancel();
 			    	}
 			    	// cancel if a player is in reach
-			    	else if(p.getWorld().getNearbyEntities(pl, 5, 5, 5).size() > 0) {
+			    	else if(p.getWorld().getNearbyEntities(pl, 15, 15, 15).size() > 0) {
 			        	Collection<Entity> entities = p.getWorld().getNearbyEntities(pl, 5, 5, 5);
 			        	for(Entity entity : entities) {
 			        		if(entity instanceof Player && !entity.isDead()) {
