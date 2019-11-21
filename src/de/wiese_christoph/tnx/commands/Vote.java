@@ -22,13 +22,19 @@ import net.md_5.bungee.api.chat.TextComponent;
 
 public class Vote implements CommandExecutor, Listener{
 	
+	Main plugin;
+	
+	public Vote(Main plugin) {
+		this.plugin = plugin;
+	}
+	
+	
 	//Create list of players who voted
 	static ArrayList<String> onplD = new ArrayList<String>();
 	static ArrayList<String> onplN = new ArrayList<String>();
 	static ArrayList<String> onplC = new ArrayList<String>();
 	static ArrayList<String> onplR = new ArrayList<String>();
 	
-	int min = (int) Math.round(Bukkit.getOnlinePlayers().size()*0.75);
 	
 	LocalDateTime lastVoteTime = LocalDateTime.now().minusMinutes(2);
 	LocalDateTime lastVoteWeather = LocalDateTime.now().minusMinutes(2);
@@ -42,6 +48,9 @@ public class Vote implements CommandExecutor, Listener{
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		
 		if(cmd.getName().equalsIgnoreCase("vote")) {
+			
+			int min = (int) Math.round(Bukkit.getOnlinePlayers().size()*0.75);
+			
 			if(sender instanceof Player) {
 				Player p = (Player)sender;
 				if(p.hasPermission("tnx.vote")) {
@@ -49,7 +58,7 @@ public class Vote implements CommandExecutor, Listener{
 						
 						//Time
 						//Day
-						if(args[0].equalsIgnoreCase("day")) {
+						if(args[0].equalsIgnoreCase("day") && LocalDateTime.now().isAfter(lastVoteWeather.plusMinutes(2)) && plugin.getConfig().getBoolean("TimeVote")) {
 							
 							// 2 Min Cooldown
 							if(LocalDateTime.now().isBefore(lastVoteTime.plusMinutes(2))){
@@ -86,7 +95,7 @@ public class Vote implements CommandExecutor, Listener{
 							}
 							
 						//Night with 2 min cooldown
-						}else if (args[0].equalsIgnoreCase("night") && LocalDateTime.now().isAfter(lastVoteTime.plusMinutes(2))) {
+						}else if (args[0].equalsIgnoreCase("night") && LocalDateTime.now().isAfter(lastVoteTime.plusMinutes(2)) && plugin.getConfig().getBoolean("TimeVote")) {
 							
 							// 2 Min Cooldown
 							if(LocalDateTime.now().isBefore(lastVoteTime.plusMinutes(2))){
@@ -217,6 +226,36 @@ public class Vote implements CommandExecutor, Listener{
 
 		}
 		
+
+		// Edit Config
+		else if(cmd.getName().equalsIgnoreCase("tv") && sender.hasPermission("tnx.tv")) {
+			if(args.length == 1) {
+				if(args[0].equalsIgnoreCase("true")) {
+					plugin.getConfig().set("TimeVote", true);
+					plugin.saveConfig();
+					plugin.reloadConfig();
+					sender.sendMessage(Main.Name + ChatColor.DARK_GREEN + "Time Vote enabled!");
+					
+					return true;
+				}else if(args[0].equalsIgnoreCase("false")) {
+					plugin.getConfig().set("TimeVote", false);
+					plugin.saveConfig();
+					plugin.reloadConfig();
+					sender.sendMessage(Main.Name + ChatColor.DARK_GREEN + "Time Vote disabled!");
+					
+					return true;
+				}else {
+					return false;
+				}
+			}else {
+				return false;
+			}
+		}else {
+			sender.sendMessage("&4No Permissions!");
+			return false;
+		}
+		
+		
 		return false;
 	}
 	
@@ -225,7 +264,7 @@ public class Vote implements CommandExecutor, Listener{
 	 public void onPlayerQuit(PlayerQuitEvent event)
      {
 		Player lp = (Player)event.getPlayer();
-		int min = Bukkit.getOnlinePlayers().size()/2;
+		int min = (int) Math.round(Bukkit.getOnlinePlayers().size()*0.75);
 		
 		//Time
 		//Day
@@ -268,5 +307,6 @@ public class Vote implements CommandExecutor, Listener{
 				onplR.clear();
 			}
 		}
+		
      }
 }

@@ -9,6 +9,7 @@ import de.wiese_christoph.tnx.commands.Vote;
 import de.wiese_christoph.tnx.commands.TabComplete;
 import de.wiese_christoph.tnx.listeners.CreeperExplosion;
 import de.wiese_christoph.tnx.listeners.Death;
+import de.wiese_christoph.tnx.listeners.Sleep;
 
 
 public class Main extends JavaPlugin{
@@ -21,11 +22,13 @@ public class Main extends JavaPlugin{
 		initConfig();
 		
 		//Init Commands
-		getCommand("vote").setExecutor(new Vote());
+		getCommand("vote").setExecutor(new Vote(this));
+		getCommand("tv").setExecutor(new Vote(this));
 		getCommand("rocket").setExecutor(new Rocket(this));
 		getCommand("ce").setExecutor(new CreeperExplosion(this));
 		getCommand("bb").setExecutor(new BossBroadcast(this));
-		getServer().getPluginManager().registerEvents(new Vote(), this);
+		getServer().getPluginManager().registerEvents(new Vote(this), this);
+		getCommand("bp").setExecutor(new Sleep(this));
 		
 		//TabCompleter
 		getCommand("vote").setTabCompleter(new TabComplete());
@@ -34,6 +37,7 @@ public class Main extends JavaPlugin{
 		//Init Events
 		getServer().getPluginManager().registerEvents(new Death(this), this);
 		getServer().getPluginManager().registerEvents(new CreeperExplosion(this), this);
+		getServer().getPluginManager().registerEvents(new Sleep(this), this);
 		
 		
 		//Save and Broadcast at restart
@@ -64,6 +68,8 @@ public class Main extends JavaPlugin{
 	private void initConfig() {
 		reloadConfig();
 		getConfig().addDefault("CreeperExplosion", true);
+		getConfig().addDefault("BedPercentage", true);
+		getConfig().addDefault("TimeVote", true);
 		getConfig().options().copyDefaults(true);
 		saveConfig();
 	}

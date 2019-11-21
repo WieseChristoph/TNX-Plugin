@@ -37,6 +37,28 @@ public class TabComplete implements TabCompleter {
 			}
 		}
 		
+		if(cmd.getName().equalsIgnoreCase("tv")) {
+			if(args.length == 1) {
+				List<String> list = new ArrayList<>();
+				list.add("true");
+				list.add("false");
+				
+				Collections.sort(list);
+				return list;
+			}
+		}
+		
+		if(cmd.getName().equalsIgnoreCase("bp")) {
+			if(args.length == 1) {
+				List<String> list = new ArrayList<>();
+				list.add("true");
+				list.add("false");
+				
+				Collections.sort(list);
+				return list;
+			}
+		}
+		
 		return null;
 	}
 
