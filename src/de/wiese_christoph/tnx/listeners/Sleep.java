@@ -25,6 +25,9 @@ public class Sleep implements Listener, CommandExecutor{
 		this.plugin = plugin;
 	}
 	
+	// minimum players to vote
+	float minPlayerPercent = 0.5f;
+	
 	static ArrayList<Player> SleepingPlayers = new ArrayList<Player>();
 
 	
@@ -34,10 +37,10 @@ public class Sleep implements Listener, CommandExecutor{
 		Player p = e.getPlayer();
 		
 		if(!e.isCancelled() && e.getBedEnterResult().equals(BedEnterResult.OK) && plugin.getConfig().getBoolean("BedPercentage")) {
-			int min = (int) Math.round(Bukkit.getOnlinePlayers().size()*0.75);
+			int min = (int) Math.round(Bukkit.getOnlinePlayers().size()*minPlayerPercent);
 			
 			SleepingPlayers.add(p);
-			Bukkit.broadcastMessage(Main.Name + ChatColor.RED + SleepingPlayers.size() + ChatColor.GOLD+ " von " + ChatColor.RED + Bukkit.getOnlinePlayers().size() + ChatColor.GOLD+ " (" + String.valueOf((SleepingPlayers.size()/Bukkit.getOnlinePlayers().size())*100) +"%) sind im Bett!");
+			Bukkit.broadcastMessage(Main.Name + ChatColor.RED + SleepingPlayers.size() + ChatColor.GOLD+ " von " + ChatColor.RED + Bukkit.getOnlinePlayers().size() + ChatColor.GOLD + " sind im Bett!");
 			
 			if(SleepingPlayers.size() >= min)
 			{
@@ -55,7 +58,7 @@ public class Sleep implements Listener, CommandExecutor{
 		
 		if(SleepingPlayers.contains(p) && plugin.getConfig().getBoolean("BedPercentage")) {
 			SleepingPlayers.remove(p);
-			Bukkit.broadcastMessage(Main.Name + ChatColor.RED + SleepingPlayers.size() + ChatColor.GOLD+ " von " + ChatColor.RED + Bukkit.getOnlinePlayers().size() + ChatColor.GOLD+ " (" + String.valueOf((SleepingPlayers.size()/Bukkit.getOnlinePlayers().size())*100) +"%) sind im Bett!");
+			Bukkit.broadcastMessage(Main.Name + ChatColor.RED + SleepingPlayers.size() + ChatColor.GOLD+ " von " + ChatColor.RED + Bukkit.getOnlinePlayers().size() + ChatColor.GOLD + " sind im Bett!");
 		}
 	}
 	

@@ -28,6 +28,8 @@ public class Vote implements CommandExecutor, Listener{
 		this.plugin = plugin;
 	}
 	
+	// minimum players to vote
+	float minPlayerPercent = 0.75f;
 	
 	//Create list of players who voted
 	static ArrayList<String> onplD = new ArrayList<String>();
@@ -49,7 +51,7 @@ public class Vote implements CommandExecutor, Listener{
 		
 		if(cmd.getName().equalsIgnoreCase("vote")) {
 			
-			int min = (int) Math.round(Bukkit.getOnlinePlayers().size()*0.75);
+			int min = (int) Math.round(Bukkit.getOnlinePlayers().size()*minPlayerPercent);
 			
 			if(sender instanceof Player) {
 				Player p = (Player)sender;
@@ -58,7 +60,7 @@ public class Vote implements CommandExecutor, Listener{
 						
 						//Time
 						//Day
-						if(args[0].equalsIgnoreCase("day") && LocalDateTime.now().isAfter(lastVoteWeather.plusMinutes(2)) && plugin.getConfig().getBoolean("TimeVote")) {
+						if(args[0].equalsIgnoreCase("day") && plugin.getConfig().getBoolean("TimeVote")) {
 							
 							// 2 Min Cooldown
 							if(LocalDateTime.now().isBefore(lastVoteTime.plusMinutes(2))){
@@ -95,7 +97,7 @@ public class Vote implements CommandExecutor, Listener{
 							}
 							
 						//Night with 2 min cooldown
-						}else if (args[0].equalsIgnoreCase("night") && LocalDateTime.now().isAfter(lastVoteTime.plusMinutes(2)) && plugin.getConfig().getBoolean("TimeVote")) {
+						}else if (args[0].equalsIgnoreCase("night") && plugin.getConfig().getBoolean("TimeVote")) {
 							
 							// 2 Min Cooldown
 							if(LocalDateTime.now().isBefore(lastVoteTime.plusMinutes(2))){
@@ -135,7 +137,7 @@ public class Vote implements CommandExecutor, Listener{
 							
 						//Weather
 						//Clear with 2 min cooldown
-						}else if (args[0].equalsIgnoreCase("clear") && LocalDateTime.now().isAfter(lastVoteWeather.plusMinutes(2))) {
+						}else if (args[0].equalsIgnoreCase("clear")) {
 							
 							// 2 Min Cooldown
 							if(LocalDateTime.now().isBefore(lastVoteWeather.plusMinutes(2))){
@@ -173,7 +175,7 @@ public class Vote implements CommandExecutor, Listener{
 							}
 							
 						//Rain with 2 min cooldown
-						}else if (args[0].equalsIgnoreCase("rain") && LocalDateTime.now().isAfter(lastVoteWeather.plusMinutes(2))) {
+						}else if (args[0].equalsIgnoreCase("rain")) {
 							
 							// 2 Min Cooldown
 							if(LocalDateTime.now().isBefore(lastVoteWeather.plusMinutes(2))){
