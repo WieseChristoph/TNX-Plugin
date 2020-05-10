@@ -13,6 +13,8 @@ import org.bukkit.entity.Firework;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.inventory.meta.FireworkMeta;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -77,5 +79,25 @@ public class Death implements Listener {
 			
 		}
 	}
+	
+	@EventHandler
+	public void onFireworkExplode(EntityExplodeEvent e) throws InterruptedException{
+		
+		//check if explosion is from firework
+		if(e.getEntity() instanceof Firework) {
+			e.blockList().clear();
+		}
+		
+	}
+	
+	@EventHandler
+	public void onEntityDamageEntity(EntityDamageByEntityEvent e) {
+		
+		//check if explosion is from firework
+		if(e.getDamager() instanceof Firework) {
+			e.setCancelled(true);
+		}
+	}
+	
 }
 	

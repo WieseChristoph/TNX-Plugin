@@ -36,7 +36,7 @@ public class Sleep implements Listener, CommandExecutor{
 		
 		Player p = e.getPlayer();
 		
-		if(!e.isCancelled() && e.getBedEnterResult().equals(BedEnterResult.OK) && plugin.getConfig().getBoolean("BedPercentage")) {
+		if(!e.isCancelled() && e.getBedEnterResult().equals(BedEnterResult.OK) && plugin.getConfig().getBoolean("BedPercentage.enabled")) {
 			int min = (int) Math.round(Bukkit.getOnlinePlayers().size()*minPlayerPercent);
 			
 			SleepingPlayers.add(p);
@@ -56,7 +56,7 @@ public class Sleep implements Listener, CommandExecutor{
 		
 		Player p = e.getPlayer();
 		
-		if(SleepingPlayers.contains(p) && plugin.getConfig().getBoolean("BedPercentage")) {
+		if(SleepingPlayers.contains(p) && plugin.getConfig().getBoolean("BedPercentage.enabled")) {
 			SleepingPlayers.remove(p);
 			Bukkit.broadcastMessage(Main.Name + ChatColor.RED + SleepingPlayers.size() + ChatColor.GOLD+ " von " + ChatColor.RED + Bukkit.getOnlinePlayers().size() + ChatColor.GOLD + " sind im Bett!");
 		}
@@ -69,14 +69,14 @@ public class Sleep implements Listener, CommandExecutor{
 		if(cmd.getName().equalsIgnoreCase("bp") && sender.hasPermission("tnx.bp")) {
 			if(args.length == 1) {
 				if(args[0].equalsIgnoreCase("true")) {
-					plugin.getConfig().set("BedPercentage", true);
+					plugin.getConfig().set("BedPercentage.enabled", true);
 					plugin.saveConfig();
 					plugin.reloadConfig();
 					sender.sendMessage(Main.Name + ChatColor.DARK_GREEN + "Bed Percentage night skip enabled!");
 					
 					return true;
 				}else if(args[0].equalsIgnoreCase("false")) {
-					plugin.getConfig().set("BedPercentage", false);
+					plugin.getConfig().set("BedPercentage.enabled", false);
 					plugin.saveConfig();
 					plugin.reloadConfig();
 					sender.sendMessage(Main.Name + ChatColor.DARK_GREEN + "Bed Percentage night skip disabled!");

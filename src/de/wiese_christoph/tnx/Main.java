@@ -10,6 +10,8 @@ import de.wiese_christoph.tnx.commands.TabComplete;
 import de.wiese_christoph.tnx.listeners.CreeperExplosion;
 import de.wiese_christoph.tnx.listeners.Death;
 import de.wiese_christoph.tnx.listeners.Sleep;
+import de.wiese_christoph.tnx.listeners.Stats;
+import de.wiese_christoph.tnx.utils.Functions;
 
 
 public class Main extends JavaPlugin{
@@ -38,17 +40,10 @@ public class Main extends JavaPlugin{
 		getServer().getPluginManager().registerEvents(new Death(this), this);
 		getServer().getPluginManager().registerEvents(new CreeperExplosion(this), this);
 		getServer().getPluginManager().registerEvents(new Sleep(this), this);
+		getServer().getPluginManager().registerEvents(new Stats(this), this);
 		
 		
 		//Save and Broadcast at restart
-		Functions.scheduleRepeatAtTime(this, new Runnable()
-	    {
-	        public void run()
-	        {
-	        	Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "save-all");
-	            Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "bb Restart in 1 Min");
-	        }
-	    }, 12);
 		Functions.scheduleRepeatAtTime(this, new Runnable()
 	    {
 	        public void run()
@@ -67,9 +62,13 @@ public class Main extends JavaPlugin{
 	
 	private void initConfig() {
 		reloadConfig();
-		getConfig().addDefault("CreeperExplosion", true);
-		getConfig().addDefault("BedPercentage", true);
-		getConfig().addDefault("TimeVote", true);
+		getConfig().addDefault("CreeperExplosion.enabled", true);
+		getConfig().addDefault("BedPercentage.enabled", true);
+		getConfig().addDefault("TimeVote.enabled", true);
+		getConfig().addDefault("CreeperExplosion.SlowRegen", true);
+		getConfig().addDefault("DB.username", "");
+		getConfig().addDefault("DB.password", "");
+		getConfig().addDefault("DB.databaseName", "");
 		getConfig().options().copyDefaults(true);
 		saveConfig();
 	}

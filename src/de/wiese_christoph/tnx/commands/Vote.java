@@ -60,7 +60,7 @@ public class Vote implements CommandExecutor, Listener{
 						
 						//Time
 						//Day
-						if(args[0].equalsIgnoreCase("day") && plugin.getConfig().getBoolean("TimeVote")) {
+						if(args[0].equalsIgnoreCase("day") && plugin.getConfig().getBoolean("TimeVote.enabled")) {
 							
 							// 2 Min Cooldown
 							if(LocalDateTime.now().isBefore(lastVoteTime.plusMinutes(2))){
@@ -97,7 +97,7 @@ public class Vote implements CommandExecutor, Listener{
 							}
 							
 						//Night with 2 min cooldown
-						}else if (args[0].equalsIgnoreCase("night") && plugin.getConfig().getBoolean("TimeVote")) {
+						}else if (args[0].equalsIgnoreCase("night") && plugin.getConfig().getBoolean("TimeVote.enabled")) {
 							
 							// 2 Min Cooldown
 							if(LocalDateTime.now().isBefore(lastVoteTime.plusMinutes(2))){
@@ -233,14 +233,14 @@ public class Vote implements CommandExecutor, Listener{
 		else if(cmd.getName().equalsIgnoreCase("tv") && sender.hasPermission("tnx.tv")) {
 			if(args.length == 1) {
 				if(args[0].equalsIgnoreCase("true")) {
-					plugin.getConfig().set("TimeVote", true);
+					plugin.getConfig().set("TimeVote.enabled", true);
 					plugin.saveConfig();
 					plugin.reloadConfig();
 					sender.sendMessage(Main.Name + ChatColor.DARK_GREEN + "Time Vote enabled!");
 					
 					return true;
 				}else if(args[0].equalsIgnoreCase("false")) {
-					plugin.getConfig().set("TimeVote", false);
+					plugin.getConfig().set("TimeVote.enabled", false);
 					plugin.saveConfig();
 					plugin.reloadConfig();
 					sender.sendMessage(Main.Name + ChatColor.DARK_GREEN + "Time Vote disabled!");

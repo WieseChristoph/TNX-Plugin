@@ -28,9 +28,12 @@ public class CreeperExplosion implements Listener, CommandExecutor {
 	public void onCreeperExplode(EntityExplodeEvent e) throws InterruptedException{
 		
 		//check if explosion is from creeper
-		if(e.getEntity() instanceof Creeper && plugin.getConfig().getBoolean("CreeperExplosion") == true) {
+		if(e.getEntity() instanceof Creeper && plugin.getConfig().getBoolean("CreeperExplosion.enabled") == true) {
+			
+			if(plugin.getConfig().getBoolean("CreeperExplosion.SlowRegen") == true) {
+			
 			//initialize block state list
-			ArrayList<BlockState> state = new ArrayList<>();	
+			ArrayList<BlockState> state = new ArrayList<>();
 			
 			//remove chest from list, to prevent explosion of them
 			for(Block b : e.blockList().toArray(new Block[e.blockList().size()])) {	
@@ -60,7 +63,13 @@ public class CreeperExplosion implements Listener, CommandExecutor {
 				}
 			}.runTaskTimer(plugin, 100, 2);
 				
+		} else {
+			e.blockList().clear();
 		}
+			
+		}
+		
+		
 	}
 
 	@Override
@@ -68,14 +77,14 @@ public class CreeperExplosion implements Listener, CommandExecutor {
 		if(cmd.getName().equalsIgnoreCase("ce") && sender.hasPermission("tnx.ce")) {
 			if(args.length == 1) {
 				if(args[0].equalsIgnoreCase("true")) {
-					plugin.getConfig().set("CreeperExplosion", true);
+					plugin.getConfig().set("CreeperExplosion.enabled", true);
 					plugin.saveConfig();
 					plugin.reloadConfig();
 					sender.sendMessage(Main.Name + ChatColor.DARK_GREEN + "Creeper Explosion Protection enabled!");
 					
 					return true;
 				}else if(args[0].equalsIgnoreCase("false")) {
-					plugin.getConfig().set("CreeperExplosion", false);
+					plugin.getConfig().set("CreeperExplosion.enabled", false);
 					plugin.saveConfig();
 					plugin.reloadConfig();
 					sender.sendMessage(Main.Name + ChatColor.DARK_GREEN + "Creeper Explosion Protection disabled!");
