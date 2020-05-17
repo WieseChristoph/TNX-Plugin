@@ -69,6 +69,9 @@ public class Main extends JavaPlugin{
 		getConfig().addDefault("DB.username", "");
 		getConfig().addDefault("DB.password", "");
 		getConfig().addDefault("DB.databaseName", "");
+		getConfig().addDefault("Death.Sound", true);
+		getConfig().addDefault("Death.Coordinates", true);
+		getConfig().addDefault("Death.Firework", true);
 		getConfig().options().copyDefaults(true);
 		saveConfig();
 	}
