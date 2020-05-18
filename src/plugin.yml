@@ -1,7 +1,7 @@
 name: TNX
-version: 0.2
+version: 0.5
 author: Tonix1508
-api-version: 1.14
+api-version: 1.15
 main: de.wiese_christoph.tnx.Main
 
 commands:
@@ -29,4 +29,8 @@ commands:
       description: Create a BossBar Broadcast Message.
       usage: /<command> <message>
       permission: tnx.bb
+     volksabstimmung:
+      description: Create a Volksabstimmung.
+      usage: /<command> <minutes> <nachricht>
+      permission: tnx.poll
      

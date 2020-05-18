@@ -1,8 +1,5 @@
 package de.wiese_christoph.tnx.listeners;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -12,26 +9,19 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
-import org.bukkit.scheduler.BukkitRunnable;
-
 import de.wiese_christoph.tnx.Main;
+import de.wiese_christoph.tnx.manager.StatsManager;
 import de.wiese_christoph.tnx.objects.PlayerStats;
-import de.wiese_christoph.tnx.utils.MysqlCon;
 
-public class Stats implements Listener {
+public class StatsListen implements Listener {
 
 	Main plugin;
 	
-	public Stats(Main plugin) {
-		this.plugin = plugin;
-		updateTimer();
+	public StatsListen(Main plugin) {
+		this.plugin = Main.getInstance();
 	}
 	
-	// hashmap to store the cache of Player stats to send to database
-	private HashMap<String,PlayerStats> cache = new HashMap<String,PlayerStats>();
-	
-	// create Database Connection
-	MysqlCon database = new MysqlCon("NextTryMc", "Q%up3LzHl30HdX1V", "NextTryMc");
+	StatsManager statMng = new StatsManager();
 	
 	
 	@EventHandler
@@ -40,28 +30,28 @@ public class Stats implements Listener {
 		if(pe instanceof Player) {
 			Player p = (Player)pe;
 			// if player is in cache, update data
-			if(cache.containsKey(p.getUniqueId().toString())){
-				cache.get(p.getUniqueId().toString()).addDeath();
+			if(statMng.cache.containsKey(p.getUniqueId().toString())){
+				statMng.cache.get(p.getUniqueId().toString()).addDeath();
 			}
 			// if player is not in cache, create a object an put it in cache
 			else {
 				PlayerStats nPlayer = new PlayerStats(p.getDisplayName(), p.getUniqueId().toString());
 				nPlayer.addDeath();
-				cache.put(p.getUniqueId().toString(), nPlayer);
+				statMng.cache.put(p.getUniqueId().toString(), nPlayer);
 			}
 			
 			// add pvpKill to the killer
 			if(p.getKiller() instanceof Player && p.getKiller() != p) {
 				Player killer = p.getKiller();
 				// if player is in cache, update data
-				if(cache.containsKey(killer.getUniqueId().toString())){
-					cache.get(killer.getUniqueId().toString()).addPvpKills();
+				if(statMng.cache.containsKey(killer.getUniqueId().toString())){
+					statMng.cache.get(killer.getUniqueId().toString()).addPvpKills();
 				}
 				// if player is not in cache, create a object an put it in cache
 				else {
 					PlayerStats nPlayer = new PlayerStats(killer.getDisplayName(), killer.getUniqueId().toString());
 					nPlayer.addPvpKills();
-					cache.put(killer.getUniqueId().toString(), nPlayer);
+					statMng.cache.put(killer.getUniqueId().toString(), nPlayer);
 				}
 			}
 		}
@@ -79,14 +69,14 @@ public class Stats implements Listener {
 				Player p = entity.getKiller();
 				
 				// if player is in cache, update data
-				if(cache.containsKey(p.getUniqueId().toString())){
-					cache.get(p.getUniqueId().toString()).addPveKills();
+				if(statMng.cache.containsKey(p.getUniqueId().toString())){
+					statMng.cache.get(p.getUniqueId().toString()).addPveKills();
 				}
 				// if player is not in cache, create a object an put it in cache
 				else {
 					PlayerStats nPlayer = new PlayerStats(p.getDisplayName(), p.getUniqueId().toString());
 					nPlayer.addPveKills();
-					cache.put(p.getUniqueId().toString(), nPlayer);
+					statMng.cache.put(p.getUniqueId().toString(), nPlayer);
 				}
 			}
 		}
@@ -98,14 +88,14 @@ public class Stats implements Listener {
 		Player p = e.getPlayer();
 		
 		// if player is in cache, update data
-		if(cache.containsKey(p.getUniqueId().toString())){
-			cache.get(p.getUniqueId().toString()).addBrokenBlocks();
+		if(statMng.cache.containsKey(p.getUniqueId().toString())){
+			statMng.cache.get(p.getUniqueId().toString()).addBrokenBlocks();
 		}
 		// if player is not in cache, create a object an put it in cache
 		else {
 			PlayerStats nPlayer = new PlayerStats(p.getDisplayName(), p.getUniqueId().toString());
 			nPlayer.addBrokenBlocks();
-			cache.put(p.getUniqueId().toString(), nPlayer);
+			statMng.cache.put(p.getUniqueId().toString(), nPlayer);
 		}
 	}
 	
@@ -115,35 +105,15 @@ public class Stats implements Listener {
 		Player p = e.getPlayer();
 		
 		// if player is in cache, update data
-		if(cache.containsKey(p.getUniqueId().toString())){
-			cache.get(p.getUniqueId().toString()).addPlacedBlocks();
+		if(statMng.cache.containsKey(p.getUniqueId().toString())){
+			statMng.cache.get(p.getUniqueId().toString()).addPlacedBlocks();
 		}
 		// if player is not in cache, create a object an put it in cache
 		else {
 			PlayerStats nPlayer = new PlayerStats(p.getDisplayName(), p.getUniqueId().toString());
 			nPlayer.addPlacedBlocks();
-			cache.put(p.getUniqueId().toString(), nPlayer);
+			statMng.cache.put(p.getUniqueId().toString(), nPlayer);
 		}
-	}
-	
-	
-	// update database every 5 minutes
-	private void updateTimer() {
-		new BukkitRunnable() {
-			
-			@Override
-			public void run() {
-				// update data for everyone in cache hashmap
-				for(Map.Entry<String, PlayerStats> entry : cache.entrySet()) {
-				    PlayerStats val=entry.getValue();
-				    // send data to database
-					database.updateData(val);
-				}
-				// clear cache
-				cache.clear();
-				
-			}
-		}.runTaskTimerAsynchronously(plugin, 6000, 6000);
 	}
 	
 }

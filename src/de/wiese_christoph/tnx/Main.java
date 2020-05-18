@@ -3,44 +3,58 @@ package de.wiese_christoph.tnx;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import de.wiese_christoph.tnx.commands.BossBroadcast;
-import de.wiese_christoph.tnx.commands.Rocket;
-import de.wiese_christoph.tnx.commands.Vote;
+import de.wiese_christoph.tnx.commands.BossBroadcastCmd;
+import de.wiese_christoph.tnx.commands.CreeperExplosionCmd;
+import de.wiese_christoph.tnx.commands.PollCmd;
+import de.wiese_christoph.tnx.commands.RocketCmd;
+import de.wiese_christoph.tnx.commands.SleepCmd;
+import de.wiese_christoph.tnx.commands.VoteCmd;
 import de.wiese_christoph.tnx.commands.TabComplete;
-import de.wiese_christoph.tnx.listeners.CreeperExplosion;
-import de.wiese_christoph.tnx.listeners.Death;
-import de.wiese_christoph.tnx.listeners.Sleep;
-import de.wiese_christoph.tnx.listeners.Stats;
+import de.wiese_christoph.tnx.listeners.CreeperExplosionListen;
+import de.wiese_christoph.tnx.listeners.DeathListen;
+import de.wiese_christoph.tnx.listeners.PollListen;
+import de.wiese_christoph.tnx.listeners.SleepListen;
+import de.wiese_christoph.tnx.listeners.StatsListen;
+import de.wiese_christoph.tnx.listeners.VoteListen;
 import de.wiese_christoph.tnx.utils.Functions;
 
 
 public class Main extends JavaPlugin{
 	
 	public static String Name = "§8[§5TNX§8] ";
+	
+	private static Main instance;
+	public static Main getInstance(){
+	    return instance;
+	}
 
 	@Override
 	public void onEnable() {
 		
+		instance = this;
+		
 		initConfig();
 		
 		//Init Commands
-		getCommand("vote").setExecutor(new Vote(this));
-		getCommand("tv").setExecutor(new Vote(this));
-		getCommand("rocket").setExecutor(new Rocket(this));
-		getCommand("ce").setExecutor(new CreeperExplosion(this));
-		getCommand("bb").setExecutor(new BossBroadcast(this));
-		getServer().getPluginManager().registerEvents(new Vote(this), this);
-		getCommand("bp").setExecutor(new Sleep(this));
+		getCommand("vote").setExecutor(new VoteCmd(this));
+		getCommand("tv").setExecutor(new VoteCmd(this));
+		getCommand("rocket").setExecutor(new RocketCmd(this));
+		getCommand("ce").setExecutor(new CreeperExplosionCmd(this));
+		getCommand("bb").setExecutor(new BossBroadcastCmd(this));
+		getCommand("bp").setExecutor(new SleepCmd(this));
+		getCommand("volksabstimmung").setExecutor(new PollCmd(this));
 		
 		//TabCompleter
 		getCommand("vote").setTabCompleter(new TabComplete());
 		getCommand("ce").setTabCompleter(new TabComplete());
 		
 		//Init Events
-		getServer().getPluginManager().registerEvents(new Death(this), this);
-		getServer().getPluginManager().registerEvents(new CreeperExplosion(this), this);
-		getServer().getPluginManager().registerEvents(new Sleep(this), this);
-		getServer().getPluginManager().registerEvents(new Stats(this), this);
+		getServer().getPluginManager().registerEvents(new VoteListen(), this);
+		getServer().getPluginManager().registerEvents(new DeathListen(this), this);
+		getServer().getPluginManager().registerEvents(new CreeperExplosionListen(this), this);
+		getServer().getPluginManager().registerEvents(new SleepListen(this), this);
+		getServer().getPluginManager().registerEvents(new StatsListen(this), this);
+		getServer().getPluginManager().registerEvents(new PollListen(this), this);
 		
 		
 		//Save and Broadcast at restart
@@ -72,6 +86,7 @@ public class Main extends JavaPlugin{
 		getConfig().addDefault("Death.Sound", true);
 		getConfig().addDefault("Death.Coordinates", true);
 		getConfig().addDefault("Death.Firework", true);
+		getConfig().addDefault("Poll.excludePollStarter", true);
 		getConfig().options().copyDefaults(true);
 		saveConfig();
 	}

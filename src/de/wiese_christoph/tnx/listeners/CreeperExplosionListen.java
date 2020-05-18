@@ -1,13 +1,9 @@
 package de.wiese_christoph.tnx.listeners;
 
 import java.util.ArrayList;
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockState;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
-import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Creeper;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -16,13 +12,14 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import de.wiese_christoph.tnx.Main;
 
-public class CreeperExplosion implements Listener, CommandExecutor {
+public class CreeperExplosionListen implements Listener {
 	
 	Main plugin;
 
-	public CreeperExplosion(Main main) {
-		this.plugin = main;
+	public CreeperExplosionListen(Main main) {
+		this.plugin = Main.getInstance();
 	}
+	
 	
 	@EventHandler
 	public void onCreeperExplode(EntityExplodeEvent e) throws InterruptedException{
@@ -70,36 +67,6 @@ public class CreeperExplosion implements Listener, CommandExecutor {
 		}
 		
 		
-	}
-
-	@Override
-	public boolean onCommand(CommandSender sender, Command cmd, String Label, String[] args) {
-		if(cmd.getName().equalsIgnoreCase("ce") && sender.hasPermission("tnx.ce")) {
-			if(args.length == 1) {
-				if(args[0].equalsIgnoreCase("true")) {
-					plugin.getConfig().set("CreeperExplosion.enabled", true);
-					plugin.saveConfig();
-					plugin.reloadConfig();
-					sender.sendMessage(Main.Name + ChatColor.DARK_GREEN + "Creeper Explosion Protection enabled!");
-					
-					return true;
-				}else if(args[0].equalsIgnoreCase("false")) {
-					plugin.getConfig().set("CreeperExplosion.enabled", false);
-					plugin.saveConfig();
-					plugin.reloadConfig();
-					sender.sendMessage(Main.Name + ChatColor.DARK_GREEN + "Creeper Explosion Protection disabled!");
-					
-					return true;
-				}else {
-					return false;
-				}
-			}else {
-				return false;
-			}
-		}else {
-			sender.sendMessage("&4No Permissions!");
-			return false;
-		}
 	}
 
 }
