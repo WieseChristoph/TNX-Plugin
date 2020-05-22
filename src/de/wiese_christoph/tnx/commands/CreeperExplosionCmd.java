@@ -18,6 +18,7 @@ public class CreeperExplosionCmd implements CommandExecutor {
 	
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String Label, String[] args) {
+		// edit config to enable/disable Creeper Explosion prevention
 		if(cmd.getName().equalsIgnoreCase("ce") && sender.hasPermission("tnx.ce")) {
 			if(args.length == 1) {
 				if(args[0].equalsIgnoreCase("true")) {

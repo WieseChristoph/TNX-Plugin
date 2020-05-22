@@ -19,12 +19,14 @@ public class BossBroadcastCmd implements CommandExecutor {
 	public boolean onCommand(CommandSender sender, Command cmd, String Label, String[] args) {
 		
 		if(cmd.getName().equalsIgnoreCase("bb") && sender.hasPermission("tnx.bb")) {
+			// check if message was added to command
 			if(args.length != 0) {
+				// add all args together to a string
 				String msg = "";
 				for(String a : args) {
 					msg = msg + " " + a;
 				}
-		
+				// create the bossbar
 				BossBroadcastManager.broadcast(msg, 1200);
 				
 				return true;

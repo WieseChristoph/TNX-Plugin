@@ -16,8 +16,10 @@ public class SleepManager {
 	public ArrayList<Player> SleepingPlayers = new ArrayList<Player>();
 	
 	public void sleepComplete() {
+		// set time to day
 		Bukkit.getWorlds().get(0).setTime(0);
 		Bukkit.broadcastMessage(Main.Name + ChatColor.DARK_GREEN + "Anscheinend haben genug geschlafen.");
+		// clear list
 		SleepingPlayers.clear();
 	}
 }

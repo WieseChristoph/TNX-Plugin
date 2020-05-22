@@ -13,13 +13,18 @@ import de.wiese_christoph.tnx.Main;
 public class BossBroadcastManager {
 	
 	public static void broadcast(String msg, int timeTicks) {
+		if(msg == null) return;
+		
+		// create bar and set start percentage
 		BossBar bar = Bukkit.createBossBar(ChatColor.GOLD + "" + ChatColor.BOLD + msg, BarColor.RED, BarStyle.SOLID);
 		bar.setProgress(1.0);
 		
+		// add each player to the bar
 		for(Player p : Bukkit.getOnlinePlayers()) {
 			bar.addPlayer(p);
 		}
 		
+		// update the bar every second and update the progress
 		new BukkitRunnable() {
 			int i = timeTicks;
 			

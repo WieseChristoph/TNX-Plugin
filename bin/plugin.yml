@@ -3,6 +3,7 @@ version: 0.5
 author: Tonix1508
 api-version: 1.15
 main: de.wiese_christoph.tnx.Main
+softdepend: [Essentials]
 
 commands:
      vote:
@@ -31,6 +32,6 @@ commands:
       permission: tnx.bb
      volksabstimmung:
       description: Create a Volksabstimmung.
-      usage: /<command> <minutes> <nachricht>
+      usage: /<command> <minutes> <message>
       permission: tnx.poll
      

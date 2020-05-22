@@ -1,7 +1,6 @@
 package de.wiese_christoph.tnx.manager;
 
 import java.util.Collection;
-
 import org.bukkit.Bukkit;
 import org.bukkit.Color;
 import org.bukkit.FireworkEffect;
@@ -19,20 +18,23 @@ import net.md_5.bungee.api.ChatColor;
 
 public class DeathManager {
 	
+	
 	public void deathSound() {
+		// play sound for everyone
 		for (Player player : Bukkit.getOnlinePlayers())
 		{
 			player.getWorld().playSound(player.getLocation(), Sound.ENTITY_VEX_DEATH, 3.0F, 0.5F);
 		}
 	}
 	
-	
+	// show death coordinates in chat
 	public void deathCoords(Player p) {
 		final Location pl = p.getLocation();
 		Bukkit.broadcastMessage(Main.Name + ChatColor.GOLD + "Todespunkt von " + ChatColor.RED +p.getDisplayName() + "§6: X: §c" + Math.round(pl.getX()) + "§6 Y: §c" + Math.round(pl.getY()) + "§6 Z: §c" + Math.round(pl.getZ()));
 	}
 	
 	
+	// spawn rockets at death point
 	public void deathRockets(Player p) {
 		
 		final Location pl = p.getLocation();
@@ -43,7 +45,8 @@ public class DeathManager {
 		    public void run() {
 		    	i++;
 		    	
-		    	Firework f = (Firework) p.getWorld().spawn(pl, Firework.class);
+		    	// setup firework
+		    	Firework f = (Firework) pl.getWorld().spawn(pl, Firework.class);
 		   	     
 		    	FireworkMeta fm = f.getFireworkMeta();
 		    	fm.addEffect(FireworkEffect.builder()
@@ -57,13 +60,13 @@ public class DeathManager {
 		    	fm.setPower(2);
 		    	f.setFireworkMeta(fm);
 		    	
-		    	// cancel if 100 fireworks have blown up
-		    	if(i >= 100) {
+		    	// cancel if 30 fireworks have blown up
+		    	if(i >= 30) {
 		    		cancel();
 		    	}
 		    	// cancel if a player is in reach
-		    	else if(p.getWorld().getNearbyEntities(pl, 15, 15, 15).size() > 0) {
-		        	Collection<Entity> entities = p.getWorld().getNearbyEntities(pl, 5, 5, 5);
+		    	else if(pl.getWorld().getNearbyEntities(pl, 15, 15, 15).size() > 0) {
+		        	Collection<Entity> entities = pl.getWorld().getNearbyEntities(pl, 10, 10, 10);
 		        	for(Entity entity : entities) {
 		        		if(entity instanceof Player && !entity.isDead()) {
 		        			cancel();
@@ -71,6 +74,6 @@ public class DeathManager {
 		        	}
 		        }
 		    }
-		}.runTaskTimerAsynchronously(Main.getInstance(), 0, 200);
+		}.runTaskTimer(Main.getInstance(), 0, 40);
 	}
 }

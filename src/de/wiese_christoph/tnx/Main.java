@@ -1,6 +1,5 @@
 package de.wiese_christoph.tnx;
 
-import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import de.wiese_christoph.tnx.commands.BossBroadcastCmd;
@@ -12,11 +11,11 @@ import de.wiese_christoph.tnx.commands.VoteCmd;
 import de.wiese_christoph.tnx.commands.TabComplete;
 import de.wiese_christoph.tnx.listeners.CreeperExplosionListen;
 import de.wiese_christoph.tnx.listeners.DeathListen;
+import de.wiese_christoph.tnx.listeners.EssentialsListener;
 import de.wiese_christoph.tnx.listeners.PollListen;
 import de.wiese_christoph.tnx.listeners.SleepListen;
 import de.wiese_christoph.tnx.listeners.StatsListen;
 import de.wiese_christoph.tnx.listeners.VoteListen;
-import de.wiese_christoph.tnx.utils.Functions;
 
 
 public class Main extends JavaPlugin{
@@ -27,7 +26,7 @@ public class Main extends JavaPlugin{
 	public static Main getInstance(){
 	    return instance;
 	}
-
+	
 	@Override
 	public void onEnable() {
 		
@@ -56,16 +55,10 @@ public class Main extends JavaPlugin{
 		getServer().getPluginManager().registerEvents(new StatsListen(this), this);
 		getServer().getPluginManager().registerEvents(new PollListen(this), this);
 		
-		
-		//Save and Broadcast at restart
-		Functions.scheduleRepeatAtTime(this, new Runnable()
-	    {
-	        public void run()
-	        {
-	        	Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "save-all");
-	            Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "bb Restart in 1 Min");
-	        }
-	    }, 0);
+		if(getServer().getPluginManager().getPlugin("Essentials")!=null) {
+			getServer().getPluginManager().registerEvents(new EssentialsListener(), this);
+			System.out.println(Name + "§6Essentials found and loaded!");
+		} else System.out.println(Name + "§6Essentials not found! Features wont be used!");
 		
 	}
 

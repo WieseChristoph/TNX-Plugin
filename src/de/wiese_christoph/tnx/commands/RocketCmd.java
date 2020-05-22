@@ -32,10 +32,10 @@ public class RocketCmd implements CommandExecutor {
 				
 			//If a player is given, the player is used
 			}else if(args.length == 1) {
-				Player tp = Bukkit.getServer().getPlayer(args[0]);
+				Player tp = Bukkit.getPlayer(args[0]);
 				if(tp != null) {	
-				rocketMng.start(tp);
-				return true;
+					rocketMng.start(tp);
+					return true;
 				
 				}else {
 					//if the argument isn't a player

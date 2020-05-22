@@ -22,19 +22,19 @@ public class PollCmd implements CommandExecutor, Listener{
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if(cmd.getName().equalsIgnoreCase("volksabstimmung")) {
 			if(sender.hasPermission("tnx.poll")) {
+				// check if a poll is already active
 				if(!PollManager.pollActive) {
-					if(args[0] != null) {
-						if(args[1] != null) {
-							String msg = "";
-							for(int i = 1; i < args.length; i++) {
-								msg = msg + " " + args[i];
-							}
-							PollManager.startPoll((Player)sender, Float.parseFloat(args[0]), msg);
-							
-							return true;			
-						}else {
-							return false;
-						}		
+					// check if enough args were passed
+					if(args.length >= 2) {
+						// add message together
+						String msg = "";
+						for(int i = 1; i < args.length; i++) {
+							msg = msg + " " + args[i];
+						}
+						// start Poll
+						PollManager.startPoll((Player)sender, Float.parseFloat(args[0]), msg);
+						
+						return true;				
 					}else {
 						return false;
 					}

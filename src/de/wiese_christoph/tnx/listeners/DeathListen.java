@@ -20,7 +20,7 @@ public class DeathListen implements Listener {
 		this.plugin = Main.getInstance();
 	}
 	
-	DeathManager deathMnd = new DeathManager();
+	DeathManager deathMng = new DeathManager();
 
 
 	@EventHandler
@@ -31,18 +31,19 @@ public class DeathListen implements Listener {
 			
 			// Play death sound to everyone
 			if(plugin.getConfig().getBoolean("Death.Sound") == true) {
-				deathMnd.deathSound();
+				deathMng.deathSound();
 			}
 			
 			// Write Coordinates of death in chat
 			if(plugin.getConfig().getBoolean("Death.Coordinates") == true) {
-				deathMnd.deathCoords(p);
+				deathMng.deathCoords(p);
 			}
 			
 			// Spawn firework on death point
 			if(plugin.getConfig().getBoolean("Death.Firework") == true) {
-				deathMnd.deathRockets(p);
+				deathMng.deathRockets(p);
 			}
+		
 		}
 	}
 	

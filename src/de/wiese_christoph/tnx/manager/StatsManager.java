@@ -19,6 +19,7 @@ public class StatsManager{
 	private MysqlCon database = new MysqlCon("NextTryMc", "Q%up3LzHl30HdX1V", "NextTryMc");
 	
 	public StatsManager() {
+		// start updater
 		updateTimer();
 	}
 	

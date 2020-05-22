@@ -33,10 +33,10 @@ public class VoteManager {
 	//get the world
 	private static World world = Bukkit.getServer().getWorld("world");
 	
+	public static int afkPlayers = 0;
+	
 	
 	public static Boolean voteDay(Player p) {
-		int min = (int) Math.round(Bukkit.getOnlinePlayers().size()*minPlayerPercent);
-		
 		// 2 Min Cooldown
 		if(LocalDateTime.now().isBefore(lastVoteTime.plusMinutes(2))){
 			p.sendMessage(Main.Name + ChatColor.RED + "Cooldown: " + ChatColor.GOLD + LocalDateTime.now().until(lastVoteTime.plusMinutes(2), ChronoUnit.SECONDS) + ChatColor.RED + " Seconds");
@@ -57,10 +57,7 @@ public class VoteManager {
 			Bukkit.broadcastMessage(Main.Name + ChatColor.RED +p.getDisplayName() + "§6 der Spacko hat für Tag gevoted!");
 			p.getServer().spigot().broadcast(message, vc);
 			
-			if(onplD.size() >= min) {
-				setDay();
-				return true;
-			}
+			checkVotePass();
 			return true;
 		}else {
 			p.sendMessage(Main.Name + "§4Du hast schon gevoted!");
@@ -70,8 +67,6 @@ public class VoteManager {
 	
 	
 	public static Boolean voteNight(Player p) {
-		int min = (int) Math.round(Bukkit.getOnlinePlayers().size()*minPlayerPercent);
-		
 		// 2 Min Cooldown
 		if(LocalDateTime.now().isBefore(lastVoteTime.plusMinutes(2))){
 			p.sendMessage(Main.Name + ChatColor.RED + "Cooldown: " + ChatColor.GOLD + LocalDateTime.now().until(lastVoteTime.plusMinutes(2), ChronoUnit.SECONDS) + ChatColor.RED + " Seconds");
@@ -93,10 +88,7 @@ public class VoteManager {
 			p.getServer().spigot().broadcast(message, vc);
 			
 
-			if(onplN.size() >= min) {
-				setNight();
-				return true;
-			}
+			checkVotePass();
 			return true;					
 		}else {
 			p.sendMessage(Main.Name + "§4Du hast schon gevoted!");
@@ -106,8 +98,6 @@ public class VoteManager {
 	
 	
 	public static Boolean voteClear(Player p) {
-		int min = (int) Math.round(Bukkit.getOnlinePlayers().size()*minPlayerPercent);
-		
 		// 2 Min Cooldown
 		if(LocalDateTime.now().isBefore(lastVoteWeather.plusMinutes(2))){
 			p.sendMessage(Main.Name + ChatColor.RED + "Cooldown: " + ChatColor.GOLD + LocalDateTime.now().until(lastVoteWeather.plusMinutes(2), ChronoUnit.SECONDS) + ChatColor.RED + " Seconds");
@@ -128,10 +118,7 @@ public class VoteManager {
 			Bukkit.broadcastMessage(Main.Name + ChatColor.RED +p.getDisplayName() + "§6 hat für klaren Himmel gevoted!");
 			p.getServer().spigot().broadcast(message, vc);
 			
-			if(onplC.size() >= min) {
-				setClear();
-				return true;
-			}
+			checkVotePass();
 			return true;
 		}else {
 			p.sendMessage(Main.Name + "§4Du hast schon gevoted!");
@@ -141,8 +128,6 @@ public class VoteManager {
 	
 	
 	public static Boolean voteRain(Player p) {
-		int min = (int) Math.round(Bukkit.getOnlinePlayers().size()*minPlayerPercent);
-		
 		// 2 Min Cooldown
 		if(LocalDateTime.now().isBefore(lastVoteWeather.plusMinutes(2))){
 			p.sendMessage(Main.Name + ChatColor.RED + "Cooldown: " + ChatColor.GOLD + LocalDateTime.now().until(lastVoteWeather.plusMinutes(2), ChronoUnit.SECONDS) + ChatColor.RED + " Seconds");
@@ -163,10 +148,7 @@ public class VoteManager {
 			Bukkit.broadcastMessage(Main.Name + ChatColor.RED +p.getDisplayName() + "§6 das Kellerkind hat für Regen gevoted!");
 			p.getServer().spigot().broadcast(message, vc);
 			
-			if(onplR.size() >= min) {
-				setRain();
-				return true;
-			}
+			checkVotePass();
 			return true;
 		}else {
 			p.sendMessage(Main.Name + "§4Du hast schon gevoted!");
@@ -209,5 +191,26 @@ public class VoteManager {
 		onplC.clear();
 		onplR.clear();
 		lastVoteWeather = LocalDateTime.now();
+	}
+	
+	
+	public static void checkVotePass() {
+		int onlinePlayers = Bukkit.getOnlinePlayers().size();
+		
+		int min = (int) Math.round((onlinePlayers - afkPlayers)*VoteManager.minPlayerPercent);
+		
+		// check if after the player left, the vote can pass
+		if(VoteManager.onplD.size() >= min && onlinePlayers != 0) {
+			VoteManager.setDay();
+		}
+		else if(VoteManager.onplN.size() >= min && onlinePlayers != 0) {
+			VoteManager.setNight();
+		}
+		else if(VoteManager.onplC.size() >= min && onlinePlayers != 0) {
+			VoteManager.setClear();
+		}
+		else if(VoteManager.onplR.size() >= min && onlinePlayers != 0) {
+			VoteManager.setRain();
+		}
 	}
 }

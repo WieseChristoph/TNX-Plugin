@@ -19,6 +19,7 @@ public class SleepCmd implements CommandExecutor{
 	// Edit Config
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String Label, String[] args) {
+		// edit config to enable/disable bed percentage
 		if(cmd.getName().equalsIgnoreCase("bp") && sender.hasPermission("tnx.bp")) {
 			if(args.length == 1) {
 				if(args[0].equalsIgnoreCase("true")) {

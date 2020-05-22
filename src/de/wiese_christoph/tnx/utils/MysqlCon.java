@@ -53,7 +53,7 @@ public class MysqlCon {
 		    	pr.setInt(7, ps.pvpKills);
 		    	
 		    	// execute statement
-		    	if(pr.executeUpdate() > 0) System.out.println(Main.Name + "Successfully added "+ ps.name + " to the database!");
+		    	if(pr.executeUpdate() > 0) System.out.println(Main.Name + "§6Successfully added "+ ps.name + " §6to the database!");
 		    	else System.out.println(Main.Name + "Error while adding "+ ps.name + " to the database!");
 		    }
 		    // if the player is already in the database, update the data
@@ -70,7 +70,7 @@ public class MysqlCon {
 			    	pr.setString(7, ps.uuid);
 			    	
 			    	// execute statement
-			    	if(pr.executeUpdate() > 0) System.out.println(Main.Name + "Successfully updated "+ ps.name + " in the database!");
+			    	if(pr.executeUpdate() > 0) System.out.println(Main.Name + "§6Successfully updated "+ ps.name + "§6 in the database!");
 			    	else System.out.println(Main.Name + "Error while updating "+ ps.name + " in the database!");
 			    }
 		    } 
