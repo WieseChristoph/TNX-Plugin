@@ -1,61 +1,48 @@
+// 
+// Decompiled by Procyon v0.5.36
+// 
+
 package de.wiese_christoph.tnx.listeners;
 
+import org.bukkit.event.player.PlayerBedLeaveEvent;
+import org.bukkit.event.EventHandler;
+import org.bukkit.entity.Player;
+import net.md_5.bungee.api.ChatColor;
+import org.bukkit.Bukkit;
+import org.bukkit.event.player.PlayerBedEnterEvent;
+import de.wiese_christoph.tnx.manager.SleepManager;
+import de.wiese_christoph.tnx.Main;
 import org.bukkit.event.Listener;
 
-import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.player.PlayerBedEnterEvent;
-import org.bukkit.event.player.PlayerBedEnterEvent.BedEnterResult;
-import org.bukkit.event.player.PlayerBedLeaveEvent;
-
-import de.wiese_christoph.tnx.Main;
-import de.wiese_christoph.tnx.manager.SleepManager;
-import net.md_5.bungee.api.ChatColor;
-
-public class SleepListen implements Listener{
-	
-	Main plugin;
-	
-	public SleepListen(Main plugin) {
-		this.plugin = Main.getInstance();
-	}
-	
-	SleepManager sleepMng = new SleepManager();
-
-	
-	@EventHandler
-	public void onBedEnter(PlayerBedEnterEvent e) {
-		
-		Player p = e.getPlayer();
-		
-		// check if bp is enabled in config and the player is in full sleep
-		if(!e.isCancelled() && e.getBedEnterResult().equals(BedEnterResult.OK) && plugin.getConfig().getBoolean("BedPercentage.enabled")) {
-			int min = (int) Math.round(Bukkit.getOnlinePlayers().size()*sleepMng.minPlayerPercent);
-			
-			// add the player to the sleeping list
-			sleepMng.SleepingPlayers.add(p);
-			Bukkit.broadcastMessage(Main.Name + ChatColor.RED + sleepMng.SleepingPlayers.size() + ChatColor.GOLD+ " von " + ChatColor.RED + Bukkit.getOnlinePlayers().size() + ChatColor.GOLD + " sind im Bett!");
-			
-			// if enough players sleep, skip night
-			if(sleepMng.SleepingPlayers.size() >= min)
-			{
-				sleepMng.sleepComplete();
-			}
-		}
-	}
-	
-	@EventHandler
-	public void onBedEnter(PlayerBedLeaveEvent e) {	
-		
-		Player p = e.getPlayer();
-		
-		// check if bp is enabled in config and the player is in list
-		if(sleepMng.SleepingPlayers.contains(p) && plugin.getConfig().getBoolean("BedPercentage.enabled")) {
-			// remove the player from the list
-			sleepMng.SleepingPlayers.remove(p);
-			Bukkit.broadcastMessage(Main.Name + ChatColor.RED + sleepMng.SleepingPlayers.size() + ChatColor.GOLD+ " von " + ChatColor.RED + Bukkit.getOnlinePlayers().size() + ChatColor.GOLD + " sind im Bett!");
-		}
-	}
-	
+public class SleepListen implements Listener
+{
+    Main plugin;
+    SleepManager sleepMng;
+    
+    public SleepListen(final Main plugin) {
+        this.sleepMng = new SleepManager();
+        this.plugin = Main.getInstance();
+    }
+    
+    @EventHandler
+    public void onBedEnter(final PlayerBedEnterEvent e) {
+        final Player p = e.getPlayer();
+        if (!e.isCancelled() && e.getBedEnterResult().equals((Object)PlayerBedEnterEvent.BedEnterResult.OK) && this.plugin.getConfig().getBoolean("BedPercentage.enabled")) {
+            final int min = Math.round(Bukkit.getOnlinePlayers().size() * this.sleepMng.minPlayerPercent);
+            this.sleepMng.SleepingPlayers.add(p);
+            Bukkit.broadcastMessage(String.valueOf(Main.Name) + ChatColor.RED + this.sleepMng.SleepingPlayers.size() + ChatColor.GOLD + " von " + ChatColor.RED + Bukkit.getOnlinePlayers().size() + ChatColor.GOLD + " sind im Bett!");
+            if (this.sleepMng.SleepingPlayers.size() >= min) {
+                this.sleepMng.sleepComplete();
+            }
+        }
+    }
+    
+    @EventHandler
+    public void onBedEnter(final PlayerBedLeaveEvent e) {
+        final Player p = e.getPlayer();
+        if (this.sleepMng.SleepingPlayers.contains(p) && this.plugin.getConfig().getBoolean("BedPercentage.enabled")) {
+            this.sleepMng.SleepingPlayers.remove(p);
+            Bukkit.broadcastMessage(String.valueOf(Main.Name) + ChatColor.RED + this.sleepMng.SleepingPlayers.size() + ChatColor.GOLD + " von " + ChatColor.RED + Bukkit.getOnlinePlayers().size() + ChatColor.GOLD + " sind im Bett!");
+        }
+    }
 }

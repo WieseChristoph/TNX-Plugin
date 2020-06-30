@@ -1,7 +1,7 @@
 name: TNX
 version: 0.5
 author: Tonix1508
-api-version: 1.15
+api-version: 1.16
 main: de.wiese_christoph.tnx.Main
 softdepend: [Essentials]
 
@@ -15,15 +15,15 @@ commands:
       usage: /<command> <player>
       permission: tnx.rocket
      ce:
-      description: Enable ord disable Creeper Explosion protection.
+      description: Enable or disable Creeper Explosion protection.
       usage: /<command> <true|false>
       permission: tnx.ce
      bp:
-      description: Enable ord disable Bed Percentage night skip.
+      description: Enable or disable Bed Percentage night skip.
       usage: /<command> <true|false>
       permission: tnx.bp
      tv:
-      description: Enable ord disable Time Vote.
+      description: Enable or disable Time Vote.
       usage: /<command> <true|false>
       permission: tnx.tve
      bb:
@@ -34,4 +34,8 @@ commands:
       description: Create a Volksabstimmung.
       usage: /<command> <minutes> <message>
       permission: tnx.poll
+     di:
+      description: Show the inventory of a player before he died.
+      usage: /<command> [player]
+      permission: tnx.di
      
