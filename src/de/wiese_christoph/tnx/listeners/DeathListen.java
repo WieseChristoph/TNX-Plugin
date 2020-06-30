@@ -9,18 +9,21 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.event.inventory.InventoryClickEvent;
+
 import de.wiese_christoph.tnx.Main;
 import de.wiese_christoph.tnx.manager.DeathManager;
 
 public class DeathListen implements Listener {
 	
 	Main plugin;
+	DeathManager deathMng;
 	
 	public DeathListen(Main plugin) {
 		this.plugin = Main.getInstance();
+		this.deathMng = new DeathManager();
 	}
 	
-	DeathManager deathMng = new DeathManager();
 
 
 	@EventHandler
@@ -43,7 +46,10 @@ public class DeathListen implements Listener {
 			if(plugin.getConfig().getBoolean("Death.Firework") == true) {
 				deathMng.deathRockets(p);
 			}
-		
+			// save inventory
+			if (this.plugin.getConfig().getBoolean("Death.Inventory")) {
+                DeathManager.addInv(p);
+            }
 		}
 	}
 	
@@ -69,6 +75,17 @@ public class DeathListen implements Listener {
 			e.setCancelled(true);
 		}
 	}
+	
+	
+	@EventHandler
+    public void onInventoryClick(final InventoryClickEvent e) {
+        if (!this.plugin.getConfig().getBoolean("Death.Inventory")) {
+            return;
+        }
+        if (e.getView().getTitle() == DeathManager.invName && !e.getWhoClicked().isOp()) {
+            e.setCancelled(true);
+        }
+    }
 	
 }
 	

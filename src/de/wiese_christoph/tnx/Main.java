@@ -4,6 +4,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import de.wiese_christoph.tnx.commands.BossBroadcastCmd;
 import de.wiese_christoph.tnx.commands.CreeperExplosionCmd;
+import de.wiese_christoph.tnx.commands.DeathInventory;
 import de.wiese_christoph.tnx.commands.PollCmd;
 import de.wiese_christoph.tnx.commands.RocketCmd;
 import de.wiese_christoph.tnx.commands.SleepCmd;
@@ -42,6 +43,7 @@ public class Main extends JavaPlugin{
 		getCommand("bb").setExecutor(new BossBroadcastCmd(this));
 		getCommand("bp").setExecutor(new SleepCmd(this));
 		getCommand("volksabstimmung").setExecutor(new PollCmd(this));
+        getCommand("di").setExecutor(new DeathInventory());
 		
 		//TabCompleter
 		getCommand("vote").setTabCompleter(new TabComplete());
@@ -79,6 +81,7 @@ public class Main extends JavaPlugin{
 		getConfig().addDefault("Death.Sound", true);
 		getConfig().addDefault("Death.Coordinates", true);
 		getConfig().addDefault("Death.Firework", true);
+        getConfig().addDefault("Death.Inventory", true);
 		getConfig().addDefault("Poll.excludePollStarter", true);
 		getConfig().options().copyDefaults(true);
 		saveConfig();
