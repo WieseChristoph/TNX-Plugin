@@ -1,45 +1,50 @@
-// 
-// Decompiled by Procyon v0.5.36
-// 
-
 package de.wiese_christoph.tnx.commands;
 
-import net.md_5.bungee.api.ChatColor;
 import org.bukkit.command.Command;
-import org.bukkit.command.CommandSender;
-import de.wiese_christoph.tnx.Main;
 import org.bukkit.command.CommandExecutor;
+import org.bukkit.command.CommandSender;
 
-public class SleepCmd implements CommandExecutor
-{
-    Main plugin;
-    
-    public SleepCmd(final Main plugin) {
-        this.plugin = Main.getInstance();
-    }
-    
-    public boolean onCommand(final CommandSender sender, final Command cmd, final String Label, final String[] args) {
-        if (!cmd.getName().equalsIgnoreCase("bp") || !sender.hasPermission("tnx.bp")) {
-            sender.sendMessage("&4No Permissions!");
-            return false;
-        }
-        if (args.length != 1) {
-            return false;
-        }
-        if (args[0].equalsIgnoreCase("true")) {
-            this.plugin.getConfig().set("BedPercentage.enabled", (Object)true);
-            this.plugin.saveConfig();
-            this.plugin.reloadConfig();
-            sender.sendMessage(String.valueOf(Main.Name) + ChatColor.DARK_GREEN + "Bed Percentage night skip enabled!");
-            return true;
-        }
-        if (args[0].equalsIgnoreCase("false")) {
-            this.plugin.getConfig().set("BedPercentage.enabled", (Object)false);
-            this.plugin.saveConfig();
-            this.plugin.reloadConfig();
-            sender.sendMessage(String.valueOf(Main.Name) + ChatColor.DARK_GREEN + "Bed Percentage night skip disabled!");
-            return true;
-        }
-        return false;
-    }
+import de.wiese_christoph.tnx.Main;
+import net.md_5.bungee.api.ChatColor;
+
+public class SleepCmd implements CommandExecutor{
+	
+	Main plugin;
+	
+	public SleepCmd(Main plugin) {
+		this.plugin = Main.getInstance();
+	}
+	
+	
+	// Edit Config
+	@Override
+	public boolean onCommand(CommandSender sender, Command cmd, String Label, String[] args) {
+		// edit config to enable/disable bed percentage
+		if(cmd.getName().equalsIgnoreCase("bp") && sender.hasPermission("tnx.bp")) {
+			if(args.length == 1) {
+				if(args[0].equalsIgnoreCase("true")) {
+					plugin.getConfig().set("BedPercentage.enabled", true);
+					plugin.saveConfig();
+					plugin.reloadConfig();
+					sender.sendMessage(Main.Name + ChatColor.DARK_GREEN + "Bed Percentage night skip enabled!");
+					
+					return true;
+				}else if(args[0].equalsIgnoreCase("false")) {
+					plugin.getConfig().set("BedPercentage.enabled", false);
+					plugin.saveConfig();
+					plugin.reloadConfig();
+					sender.sendMessage(Main.Name + ChatColor.DARK_GREEN + "Bed Percentage night skip disabled!");
+					
+					return true;
+				}else {
+					return false;
+				}
+			}else {
+				return false;
+			}
+		}else {
+			sender.sendMessage("&4No Permissions!");
+			return false;
+		}
+		}
 }

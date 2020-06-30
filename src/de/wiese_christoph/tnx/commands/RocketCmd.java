@@ -1,47 +1,57 @@
-// 
-// Decompiled by Procyon v0.5.36
-// 
-
 package de.wiese_christoph.tnx.commands;
 
 import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
 import org.bukkit.command.Command;
-import org.bukkit.command.CommandSender;
-import de.wiese_christoph.tnx.manager.RocketManager;
-import de.wiese_christoph.tnx.Main;
 import org.bukkit.command.CommandExecutor;
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
+import de.wiese_christoph.tnx.Main;
+import de.wiese_christoph.tnx.manager.RocketManager;
 
-public class RocketCmd implements CommandExecutor
-{
-    Main plugin;
-    RocketManager rocketMng;
-    
-    public RocketCmd(final Main plugin) {
-        this.rocketMng = new RocketManager();
-        this.plugin = Main.getInstance();
-    }
-    
-    public boolean onCommand(final CommandSender sender, final Command cmd, final String Label, final String[] args) {
-        if (!cmd.getName().equalsIgnoreCase("rocket") || !sender.hasPermission("tnx.rocket") || !(sender instanceof Player)) {
-            sender.sendMessage("ยง4Error!");
-            return false;
-        }
-        final Player p = (Player)sender;
-        if (args.length == 0) {
-            this.rocketMng.start(p);
-            return true;
-        }
-        if (args.length != 1) {
-            p.sendMessage("ยง4Too many Arguments");
-            return false;
-        }
-        final Player tp = Bukkit.getPlayer(args[0]);
-        if (tp != null) {
-            this.rocketMng.start(tp);
-            return true;
-        }
-        p.sendMessage("ยง4Argument needs to be a Player");
-        return false;
-    }
+public class RocketCmd implements CommandExecutor {
+	
+	Main plugin;
+	
+	public RocketCmd(Main plugin) {
+		this.plugin = Main.getInstance();
+	}
+	
+	RocketManager rocketMng = new RocketManager();
+	
+
+	@Override
+	public boolean onCommand(CommandSender sender, Command cmd, String Label, String[] args) {
+		// get command request and check for Permission and if the sender is a Player
+		if(cmd.getName().equalsIgnoreCase("rocket")&&sender.hasPermission("tnx.rocket")&&sender instanceof Player) {
+			Player p = (Player) sender;
+			
+			//if no argument is given, the executing player is chosen
+			if(args.length == 0) {
+				rocketMng.start(p);
+				return true;
+				
+			//If a player is given, the player is used
+			}else if(args.length == 1) {
+				Player tp = Bukkit.getPlayer(args[0]);
+				if(tp != null) {	
+					rocketMng.start(tp);
+					return true;
+				
+				}else {
+					//if the argument isn't a player
+					p.sendMessage("ง4Argument needs to be a Player");
+					return false;
+				}
+			}else {
+				//if there is more than one argument
+				p.sendMessage("ง4Too many Arguments");
+				return false;
+			}	
+		}else {
+			sender.sendMessage("ง4Error!");
+			return false;
+		}
+		
+	}
+
 }
