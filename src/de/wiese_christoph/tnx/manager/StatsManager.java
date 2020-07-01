@@ -7,7 +7,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import de.wiese_christoph.tnx.Main;
 import de.wiese_christoph.tnx.objects.PlayerStats;
-import de.wiese_christoph.tnx.utils.MysqlCon;
+import de.wiese_christoph.tnx.utils.DBConn;
 
 public class StatsManager{
 	
@@ -16,7 +16,7 @@ public class StatsManager{
 	public HashMap<String,PlayerStats> cache = new HashMap<String,PlayerStats>();
 	
 	// create Database Connection
-	private MysqlCon database = new MysqlCon("NextTryMc", "Q%up3LzHl30HdX1V", "NextTryMc");
+	private DBConn database = new DBConn("NextTryMc", "Q%up3LzHl30HdX1V", "NextTryMc");
 	
 	public StatsManager() {
 		// start updater
