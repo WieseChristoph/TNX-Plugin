@@ -47,20 +47,20 @@ public class VoteManager {
 			onplD.add(p.getDisplayName());
 			
 			//Make clickable Command
-			TextComponent message = new TextComponent( Main.Name + ChatColor.RED + onplD.size() + ChatColor.GOLD+ " von " + ChatColor.RED + Bukkit.getOnlinePlayers().size() + ChatColor.GOLD+ " haben für Tag gevoted! - " );
+			TextComponent message = new TextComponent( Main.Name + ChatColor.RED + onplD.size() + ChatColor.GOLD+ " von " + ChatColor.RED + Bukkit.getOnlinePlayers().size() + ChatColor.GOLD+ " haben fÃ¼r Tag gevoted! - " );
 			TextComponent vc = new TextComponent("/vote day" );
 			vc.setColor(ChatColor.LIGHT_PURPLE);
 			vc.setUnderlined(true);
 			vc.setClickEvent( new ClickEvent( ClickEvent.Action.RUN_COMMAND, "/vote day" ) );
 			vc.setHoverEvent( new HoverEvent( HoverEvent.Action.SHOW_TEXT, new ComponentBuilder( ChatColor.RED + "Click to Vote!" ).create() ) );
 			
-			Bukkit.broadcastMessage(Main.Name + ChatColor.RED +p.getDisplayName() + "§6 der Spacko hat für Tag gevoted!");
+			Bukkit.broadcastMessage(Main.Name + ChatColor.RED +p.getDisplayName() + "Â§6 der Spacko hat fÃ¼r Tag gevoted!");
 			p.getServer().spigot().broadcast(message, vc);
 			
 			checkVotePass();
 			return true;
 		}else {
-			p.sendMessage(Main.Name + "§4Du hast schon gevoted!");
+			p.sendMessage(Main.Name + "Â§4Du hast schon gevoted!");
 			return true;
 		}
 	}
@@ -77,21 +77,21 @@ public class VoteManager {
 			onplN.add(p.getDisplayName());
 			
 			//Make clickable Command
-			TextComponent message = new TextComponent( Main.Name + ChatColor.RED + onplN.size() + ChatColor.GOLD+ " von " + ChatColor.RED + Bukkit.getOnlinePlayers().size() + ChatColor.GOLD+ " haben für Nacht gevoted! - " );
+			TextComponent message = new TextComponent( Main.Name + ChatColor.RED + onplN.size() + ChatColor.GOLD+ " von " + ChatColor.RED + Bukkit.getOnlinePlayers().size() + ChatColor.GOLD+ " haben fÃ¼r Nacht gevoted! - " );
 			TextComponent vc = new TextComponent("/vote night" );
 			vc.setColor(ChatColor.LIGHT_PURPLE);
 			vc.setUnderlined(true);
 			vc.setClickEvent( new ClickEvent( ClickEvent.Action.RUN_COMMAND, "/vote night" ) );
 			vc.setHoverEvent( new HoverEvent( HoverEvent.Action.SHOW_TEXT, new ComponentBuilder( ChatColor.RED + "Click to Vote!" ).create() ) );
 			
-			Bukkit.broadcastMessage(Main.Name + ChatColor.RED +p.getDisplayName() + "§6 das Kellerkind hat für Nacht gevoted!");
+			Bukkit.broadcastMessage(Main.Name + ChatColor.RED +p.getDisplayName() + "Â§6 das Kellerkind hat fÃ¼r Nacht gevoted!");
 			p.getServer().spigot().broadcast(message, vc);
 			
 
 			checkVotePass();
 			return true;					
 		}else {
-			p.sendMessage(Main.Name + "§4Du hast schon gevoted!");
+			p.sendMessage(Main.Name + "Â§4Du hast schon gevoted!");
 			return true;
 		}
 	}
@@ -108,20 +108,20 @@ public class VoteManager {
 			onplC.add(p.getDisplayName());
 			
 			//Make clickable Command
-			TextComponent message = new TextComponent( Main.Name + ChatColor.RED + onplC.size() + ChatColor.GOLD+ " von " + ChatColor.RED + Bukkit.getOnlinePlayers().size() + ChatColor.GOLD+ " haben für klaren Himmel gevoted! - " );
+			TextComponent message = new TextComponent( Main.Name + ChatColor.RED + onplC.size() + ChatColor.GOLD+ " von " + ChatColor.RED + Bukkit.getOnlinePlayers().size() + ChatColor.GOLD+ " haben fÃ¼r klaren Himmel gevoted! - " );
 			TextComponent vc = new TextComponent("/vote clear" );
 			vc.setColor(ChatColor.LIGHT_PURPLE);
 			vc.setUnderlined(true);
 			vc.setClickEvent( new ClickEvent( ClickEvent.Action.RUN_COMMAND, "/vote clear" ) );
 			vc.setHoverEvent( new HoverEvent( HoverEvent.Action.SHOW_TEXT, new ComponentBuilder( ChatColor.RED + "Click to Vote!" ).create() ) );
 			
-			Bukkit.broadcastMessage(Main.Name + ChatColor.RED +p.getDisplayName() + "§6 hat für klaren Himmel gevoted!");
+			Bukkit.broadcastMessage(Main.Name + ChatColor.RED +p.getDisplayName() + "Â§6 hat fÃ¼r klaren Himmel gevoted!");
 			p.getServer().spigot().broadcast(message, vc);
 			
 			checkVotePass();
 			return true;
 		}else {
-			p.sendMessage(Main.Name + "§4Du hast schon gevoted!");
+			p.sendMessage(Main.Name + "Â§4Du hast schon gevoted!");
 			return true;
 		}
 	}
@@ -138,20 +138,20 @@ public class VoteManager {
 			onplR.add(p.getDisplayName());
 			
 			//Make clickable Command
-			TextComponent message = new TextComponent( Main.Name + ChatColor.RED + onplR.size() + ChatColor.GOLD+ " von " + ChatColor.RED + Bukkit.getOnlinePlayers().size() + ChatColor.GOLD+ " haben für Regen gevoted! - " );
+			TextComponent message = new TextComponent( Main.Name + ChatColor.RED + onplR.size() + ChatColor.GOLD+ " von " + ChatColor.RED + Bukkit.getOnlinePlayers().size() + ChatColor.GOLD+ " haben fÃ¼r Regen gevoted! - " );
 			TextComponent vc = new TextComponent("/vote rain" );
 			vc.setColor(ChatColor.LIGHT_PURPLE);
 			vc.setUnderlined(true);
 			vc.setClickEvent( new ClickEvent( ClickEvent.Action.RUN_COMMAND, "/vote rain" ) );
 			vc.setHoverEvent( new HoverEvent( HoverEvent.Action.SHOW_TEXT, new ComponentBuilder( ChatColor.RED + "Click to Vote!" ).create() ) );
 			
-			Bukkit.broadcastMessage(Main.Name + ChatColor.RED +p.getDisplayName() + "§6 das Kellerkind hat für Regen gevoted!");
+			Bukkit.broadcastMessage(Main.Name + ChatColor.RED +p.getDisplayName() + "Â§6 das Kellerkind hat fÃ¼r Regen gevoted!");
 			p.getServer().spigot().broadcast(message, vc);
 			
 			checkVotePass();
 			return true;
 		}else {
-			p.sendMessage(Main.Name + "§4Du hast schon gevoted!");
+			p.sendMessage(Main.Name + "Â§4Du hast schon gevoted!");
 			return true;
 		}
 	}

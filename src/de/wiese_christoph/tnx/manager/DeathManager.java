@@ -28,7 +28,7 @@ public class DeathManager
     
     static {
         DeathManager.invList = new HashMap<String, ItemStack[]>();
-        DeathManager.invName = "ง4Death Inventory";
+        DeathManager.invName = "ยง4Death Inventory";
     }
     
     public static void addInv(final Player p) {
@@ -51,7 +51,7 @@ public class DeathManager
             reqestPlayer.openInventory(targetInv);
         }
         else {
-            reqestPlayer.sendMessage(String.valueOf(Main.Name) + "ง4Kein Inventar gespeichert!");
+            reqestPlayer.sendMessage(String.valueOf(Main.Name) + "ยง4Kein Inventar gespeichert!");
         }
     }
     
@@ -63,7 +63,7 @@ public class DeathManager
     
     public void deathCoords(final Player p) {
         final Location pl = p.getLocation();
-        Bukkit.broadcastMessage(String.valueOf(Main.Name) + ChatColor.GOLD + "Todespunkt von " + ChatColor.RED + p.getDisplayName() + "ง6: X: งc" + Math.round(pl.getX()) + "ง6 Y: งc" + Math.round(pl.getY()) + "ง6 Z: งc" + Math.round(pl.getZ()));
+        Bukkit.broadcastMessage(String.valueOf(Main.Name) + ChatColor.GOLD + "Todespunkt von " + ChatColor.RED + p.getDisplayName() + "ยง6: X: ยงc" + Math.round(pl.getX()) + "ยง6 Y: ยงc" + Math.round(pl.getY()) + "ยง6 Z: ยงc" + Math.round(pl.getZ()));
     }
     
     public void deathRockets(final Player p) {

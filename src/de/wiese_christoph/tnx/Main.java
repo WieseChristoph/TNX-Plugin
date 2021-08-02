@@ -21,7 +21,7 @@ import de.wiese_christoph.tnx.listeners.VoteListen;
 
 public class Main extends JavaPlugin{
 	
-	public static String Name = "ง8[ง5TNXง8] ";
+	public static String Name = "ยง8[ยง5TNXยง8] ";
 	
 	private static Main instance;
 	public static Main getInstance(){
@@ -59,8 +59,8 @@ public class Main extends JavaPlugin{
 		
 		if(getServer().getPluginManager().getPlugin("Essentials")!=null) {
 			getServer().getPluginManager().registerEvents(new EssentialsListener(), this);
-			System.out.println(Name + "ง6Essentials found and loaded!");
-		} else System.out.println(Name + "ง6Essentials not found! Features wont be used!");
+			System.out.println(Name + "ยง6Essentials found and loaded!");
+		} else System.out.println(Name + "ยง6Essentials not found! Features wont be used!");
 		
 	}
 

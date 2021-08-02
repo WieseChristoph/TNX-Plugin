@@ -52,15 +52,15 @@ public class VoteCmd implements CommandExecutor, Listener{
 							return VoteManager.voteRain(p);
 							
 						}else {
-							p.sendMessage(Main.Name + "ง4Nope.");
+							p.sendMessage(Main.Name + "ยง4Nope.");
 							return false;
 						}
 					}else {
-						p.sendMessage(Main.Name + "ง4Ja was vote man?!");
+						p.sendMessage(Main.Name + "ยง4Ja was vote man?!");
 						return false;
 					}
 				}else {
-					p.sendMessage(Main.Name + "ง4No Permissions!");
+					p.sendMessage(Main.Name + "ยง4No Permissions!");
 					return false;
 				}
 			}

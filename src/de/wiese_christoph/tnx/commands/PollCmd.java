@@ -39,7 +39,7 @@ public class PollCmd implements CommandExecutor, Listener{
 						return false;
 					}
 				}else {
-					sender.sendMessage(Main.Name + ChatColor.DARK_RED + "Es l‰uft bereits eine Abstimmung!");
+					sender.sendMessage(Main.Name + ChatColor.DARK_RED + "Es l√§uft bereits eine Abstimmung!");
 					return true;
 				}
 			}else {

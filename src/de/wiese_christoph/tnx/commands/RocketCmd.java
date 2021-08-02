@@ -39,16 +39,16 @@ public class RocketCmd implements CommandExecutor {
 				
 				}else {
 					//if the argument isn't a player
-					p.sendMessage("ง4Argument needs to be a Player");
+					p.sendMessage("ยง4Argument needs to be a Player");
 					return false;
 				}
 			}else {
 				//if there is more than one argument
-				p.sendMessage("ง4Too many Arguments");
+				p.sendMessage("ยง4Too many Arguments");
 				return false;
 			}	
 		}else {
-			sender.sendMessage("ง4Error!");
+			sender.sendMessage("ยง4Error!");
 			return false;
 		}
 		

@@ -1,7 +1,9 @@
 package de.wiese_christoph.tnx.utils;
+
 import java.sql.*;
 import de.wiese_christoph.tnx.Main;
 import de.wiese_christoph.tnx.objects.PlayerStats;
+import org.postgresql.Driver;
 
 public class DBConn {
 	
@@ -20,9 +22,10 @@ public class DBConn {
 	
 	// create a connection to the database
 	private void Connect() {
+		Driver.isRegistered();
 		try {
-			conn = DriverManager.getConnection("jdbc:postgresql://localhost/" + this.dbname, this.username, this.passwd);
-		}catch(Exception e){ System.out.println(e);}
+			conn = DriverManager.getConnection("jdbc:postgresql://localhost:5432/" + this.dbname, this.username, this.passwd);
+		}catch(Exception e){ System.out.println(e.getMessage());}
 	}
 	
 	
@@ -52,7 +55,7 @@ public class DBConn {
 		    	pr.setInt(7, ps.pvpKills);
 		    	
 		    	// execute statement
-		    	if(pr.executeUpdate() > 0) System.out.println(Main.Name + "ง6Successfully added "+ ps.name + " ง6to the database!");
+		    	if(pr.executeUpdate() > 0) System.out.println(Main.Name + "ยง6Successfully added "+ ps.name + " ยง6to the database!");
 		    	else System.out.println(Main.Name + "Error while adding "+ ps.name + " to the database!");
 		    }
 		    // if the player is already in the database, update the data
@@ -69,7 +72,7 @@ public class DBConn {
 			    	pr.setString(7, ps.uuid);
 			    	
 			    	// execute statement
-			    	if(pr.executeUpdate() > 0) System.out.println(Main.Name + "ง6Successfully updated "+ ps.name + "ง6 in the database!");
+			    	if(pr.executeUpdate() > 0) System.out.println(Main.Name + "ยง6Successfully updated "+ ps.name + "ยง6 in the database!");
 			    	else System.out.println(Main.Name + "Error while updating "+ ps.name + " in the database!");
 			    }
 		    } 

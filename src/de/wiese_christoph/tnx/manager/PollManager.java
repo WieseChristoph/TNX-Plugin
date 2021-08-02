@@ -49,7 +49,7 @@ public class PollManager {
 				
 				// update action bar for every player
 				for(Player p : Bukkit.getOnlinePlayers()) {
-					p.spigot().sendMessage(net.md_5.bungee.api.ChatMessageType.ACTION_BAR, net.md_5.bungee.api.chat.TextComponent.fromLegacyText("§6Dauer der Volksabstimmung: §2" + time));
+					p.spigot().sendMessage(net.md_5.bungee.api.ChatMessageType.ACTION_BAR, net.md_5.bungee.api.chat.TextComponent.fromLegacyText("Â§6Dauer der Volksabstimmung: Â§2" + time));
 				}
 				
 				// between 5 and 1 seconds, play a sound
@@ -96,28 +96,28 @@ public class PollManager {
 		}
 		
 		// init vars for count
-		int dafür = 0;
+		int dafÃ¼r = 0;
 		int dagegen = 0;
 		int enthalten = 0;
 		
 		// count the votes
 		for(int vote : votes.values()) {
-			if(vote == 1) dafür++;
+			if(vote == 1) dafÃ¼r++;
 			if(vote == 2) dagegen++;
 			if(vote == 0) enthalten++;
 		}
 		
 		// format to percent
 		DecimalFormat df = new DecimalFormat("##.##%");
-		String dafürP = df.format((double)dafür/votes.size());
+		String dafÃ¼rP = df.format((double)dafÃ¼r/votes.size());
 		String dagegenP = df.format((double)dagegen/votes.size());
 		String enthaltenP = df.format((double)enthalten/votes.size());
 		
 		// broadcast the vote results
-		Bukkit.broadcastMessage(Main.Name + "§6Volksabstimmung ist beendet! Insgesamt: " + votes.size() + " Stimmen!");
-		Bukkit.broadcastMessage(Main.Name + "§aDafür: " + dafür + " (" + dafürP + 
-				") §cDagegen: " + dagegen + " (" + dagegenP + 
-				") §8Enthalten: " + enthalten + " (" + enthaltenP +
+		Bukkit.broadcastMessage(Main.Name + "Â§6Volksabstimmung ist beendet! Insgesamt: " + votes.size() + " Stimmen!");
+		Bukkit.broadcastMessage(Main.Name + "Â§aDafÃ¼r: " + dafÃ¼r + " (" + dafÃ¼rP +
+				") Â§cDagegen: " + dagegen + " (" + dagegenP + 
+				") Â§8Enthalten: " + enthalten + " (" + enthaltenP +
 				")");
 		
 		// clear the vote list
