@@ -1,0 +1,66 @@
+name: TNX-Utils
+version: "${version}"
+author: Christoph Wiese
+main: de.wiese_christoph.tnxutils.TnxUtils
+api-version: "1.20"
+
+commands:
+     vote:
+      description: Vote for day, night, clear or rain
+      usage: /<command> [day|night|clear|rain]
+      permission: tnx.vote
+      permission-message: You do not have permission to use this command.
+     rocket:
+      description: Launch a player in the air and let him explode
+      usage: /<command> [player]
+      permission: tnx.rocket
+      permission-message: You do not have permission to use this command.
+     cep:
+      description: Enable or disable Creeper explosion protection
+      usage: /<command> [true|false]
+      permission: tnx.cep
+      permission-message: You do not have permission to use this command.
+     twv:
+      description: Enable or disable time/weather vote
+      usage: /<command> [true|false]
+      permission: tnx.twv
+      permission-message: You do not have permission to use this command.
+     bb:
+      description: Create a BossBar broadcast message
+      usage: /<command> [seconds] [message]
+      permission: tnx.bb
+      permission-message: You do not have permission to use this command.
+     poll:
+      description: Create a poll and let people vote in chat with 1 (yes) and 2 (no)
+      usage: /<command> [seconds] [message]
+      permission: tnx.poll
+      permission-message: You do not have permission to use this command.
+     di:
+      description: Show the inventory of a player before he died
+      usage: /<command> [player]
+      permission: tnx.di
+      permission-message: You do not have permission to use this command.
+
+permissions:
+  tnx.vote:
+    description: Allows vote command
+    default: true
+  tnx.rocket:
+    description: Allows rocket command
+    default: op
+  tnx.cep:
+    description: Allows cep command
+    default: op
+  tnx.twv:
+    description: Allows twv command
+    default: op
+  tnx.bb:
+    description: Allows bb command
+    default: op
+  tnx.poll:
+    description: Allows poll command
+    default: op
+  tnx.di:
+    description: Allows di command
+    default: true
+     
