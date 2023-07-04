@@ -101,8 +101,8 @@ public class TimeWeatherVoteManager {
 		int onlinePlayers = Bukkit.getOnlinePlayers().size();
 
 		for (Map.Entry<Vote, ArrayList<String>> e : votes.entrySet()) {
-			if (e.getValue().size() >= minPlayerPercent && onlinePlayers != 0) {
-				if (e.getKey().equals(Vote.DAY) || e.getKey().equals(Vote.RAIN)) setTime(e.getKey());
+			if (onlinePlayers != 0 && e.getValue().size() >= (onlinePlayers * minPlayerPercent)) {
+				if (e.getKey().equals(Vote.DAY) || e.getKey().equals(Vote.NIGHT)) setTime(e.getKey());
 				else setWeather(e.getKey());
 				break;
 			}
